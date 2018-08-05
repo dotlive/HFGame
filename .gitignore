@@ -1,15 +1,18 @@
 .vs
+.idea
 Library
 Package
 ProjectSettings
 Temp
 
-Assets/ExternalLibs/XLua/Doc/
+Assets/ExternalLibs/XLua/Doc
 Assets/ExternalLibs/XLua/Doc.meta
-Assets/ExternalLibs/XLua/Examples/
+Assets/ExternalLibs/XLua/Examples
 Assets/ExternalLibs/XLua/Examples.meta
-Assets/ExternalLibs/XLua/Tutorial/
+Assets/ExternalLibs/XLua/Tutorial
 Assets/ExternalLibs/XLua/Tutorial.meta
 
-Assets/Plugins/XLua/WebGL/
+Assets/Plugins/Editor
+Assets/Plugins/Editor.meta
+Assets/Plugins/XLua/WebGL
 Assets/Plugins/XLua/WebGL.meta
