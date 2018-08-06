@@ -27,17 +27,17 @@ local pb_test = function()
     print(pb.tohex(bytes))
 
     local data2 = assert(pb.decode("Person", bytes))
-    print(require "serpent".block(data2))
+    print(require "pb.serpent".block(data2))
 end
 
-function start()
+function Start()
     pb_test()
 end
 
-function update()
+function Update()
 end
 
-function ondestroy()
+function OnDestroy()
     print("lua destroy")
 end
 
