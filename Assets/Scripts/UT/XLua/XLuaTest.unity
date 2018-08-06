@@ -356,5 +356,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fb16c33bbcd44eef95f6f33ab88fbe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  luaScript: {fileID: 4900000, guid: e36a7c3df7ac54c8689d6dacd8e8b7d0, type: 3}
-  injections: []
+  luaScript: {fileID: 4900000, guid: 0ef320db3551647009d577d695aeaca1, type: 3}
+  variables: []
