@@ -25,7 +25,11 @@ namespace HFGame
                 return false;
             }
 
-            _luaEnv.AddBuildin("pb", LuaAPI.LoadLuaProtobuf);
+            // lua-protobuf
+            _luaEnv.AddBuildin("pb", LuaAPI.open_pb);
+            _luaEnv.AddBuildin("pb.conv", LuaAPI.open_pb_conv);
+            _luaEnv.AddBuildin("pb.buffer", LuaAPI.open_pb_buffer);
+            _luaEnv.AddBuildin("pb.slice", LuaAPI.open_pb_slice);
 
             return true;
         }
