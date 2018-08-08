@@ -1,0 +1,5 @@
+local patch_list = require("patch.patch_list")
+
+for _, patch_file_name in ipairs(patch_list) do
+    require("patch." .. patch_file_name)
+end

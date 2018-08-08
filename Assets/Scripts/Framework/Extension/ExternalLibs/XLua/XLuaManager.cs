@@ -30,10 +30,14 @@ namespace HFGame
             _luaEnv.AddBuildin("pb.conv", LuaAPI.open_pb_conv);
             _luaEnv.AddBuildin("pb.buffer", LuaAPI.open_pb_buffer);
             _luaEnv.AddBuildin("pb.slice", LuaAPI.open_pb_slice);
+            _luaEnv.AddBuildin("pb.io", LuaAPI.open_pb_io);
+
+            // load patch
+            _luaEnv.DoString("require 'patch.main'");
 
             return true;
         }
-        
+
         LuaEnv _luaEnv = null;
         public LuaEnv luaEnv
         {

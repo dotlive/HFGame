@@ -1,0 +1,5 @@
+local patch_list = {
+    "patch_20180808"
+}
+
+return patch_list

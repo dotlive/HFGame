@@ -13,6 +13,7 @@ public class Variable
 }
 
 [LuaCallCSharp]
+[Hotfix]
 public class XLuaBehaviour : MonoBehaviour
 {
     public TextAsset luaScript;
@@ -96,5 +97,12 @@ public class XLuaBehaviour : MonoBehaviour
         luaAwake = null;
         scriptEnv.Dispose();
         variables = null;
+        
+        Show();
+    }
+
+    void Show()
+    {
+        Debug.Log("CSharp: Show");
     }
 }

@@ -16,6 +16,9 @@ namespace XLua.LuaDLL
 
         [DllImport(LUADLL, CallingConvention = CallingConvention.Cdecl)]
         public static extern int luaopen_pb_slice(System.IntPtr L);
+
+        [DllImport(LUADLL, CallingConvention = CallingConvention.Cdecl)]
+        public static extern int luaopen_pb_io(System.IntPtr L);
         #endregion
 
         #region MonoPInvokeCallback
@@ -41,6 +44,12 @@ namespace XLua.LuaDLL
         public static int open_pb_slice(System.IntPtr L)
         {
             return luaopen_pb_slice(L);
+        }
+
+        [MonoPInvokeCallback(typeof(LuaDLL.lua_CSFunction))]
+        public static int open_pb_io(System.IntPtr L)
+        {
+            return luaopen_pb_io(L);
         }
         #endregion
     }

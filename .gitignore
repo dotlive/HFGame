@@ -20,3 +20,6 @@ Assets/Plugins/Editor
 Assets/Plugins/Editor.meta
 Assets/Plugins/XLua/WebGL
 Assets/Plugins/XLua/WebGL.meta
+
+Assets/XLua
+Assets/XLua.meta

@@ -1,0 +1,15 @@
+local util = require "xlua.util"
+local append_mode = 1
+
+xlua.private_accessible(CS.XLuaBehaviour)
+
+if append_mode then
+    util.hotfix_ex(CS.XLuaBehaviour, "Show", function(self)
+        self:Show()
+        print("lua: Show")
+    end)
+else 
+    xlua.hotfix(CS.XLuaBehaviour, "Show", function(self)
+        print("lua: Show")
+    end)
+end
