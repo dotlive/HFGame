@@ -6,22 +6,49 @@ using UnityEditor;
 
 public class test : MonoBehaviour
 {
+    enum CaseMask
+    {
+        ResourcesSync = 1 << 0,
+        ResourcesAsync = 1 << 1,
+        AssetDatabase = 1 << 2,
+        AssetBundle = 1 << 3,
+        All = 0XFF,
+    }
+
     static readonly string RES_PATH1 = "patch/main.lua";    // ext = .txt
     static readonly string RES_PATH2 = "sample/a";          // ext = .txt | .prefab
+    static readonly CaseMask mask = CaseMask.AssetBundle;
 
     void Start()
     {
         // Resouces - Sync
-        ResourcesLoad();
+        if (BitAdd(CaseMask.ResourcesSync))
+        {
+            ResourcesLoad();
+        }
 
         // Resouces - Async
-        StartCoroutine( ResourcesLoadAsync() );
+        if (BitAdd(CaseMask.ResourcesAsync))
+        {
+            StartCoroutine(ResourcesLoadAsync());
+        }
 
         // AssetDatabase
-        ADBLoad();
+        if (BitAdd(CaseMask.AssetDatabase))
+        {
+            ADBLoad();
+        }
 
         // Assetbundle
-        // ...
+        if (BitAdd(CaseMask.AssetBundle))
+        {
+            StartCoroutine(AssetBundleLoad());
+        }
+    }
+
+    bool BitAdd(CaseMask val)
+    {
+        return (val & mask) != 0;
     }
 
     void ResourcesLoad()
@@ -91,5 +118,42 @@ public class test : MonoBehaviour
             Debug.Log(res_3.text);
         }
 #endif
+    }
+
+    IEnumerator AssetBundleLoad()
+    {
+        string strWWWPath = PathUtil.GetWWWPath();
+        strWWWPath += "/";
+        strWWWPath += PathUtil.GetPlatformName();
+        Debug.Log(strWWWPath);
+        WWW www = new WWW(strWWWPath);
+        yield return www;
+
+        AssetBundle bundle = www.assetBundle;
+        AssetBundleManifest main_ab = bundle.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
+        string[] sub_abs = main_ab.GetAllAssetBundles();
+        foreach (string sub_ab in sub_abs)
+        {
+            strWWWPath = PathUtil.GetWWWPath();
+            strWWWPath += "/";
+            strWWWPath += sub_ab;
+            Debug.Log(strWWWPath);
+            WWW www2 = new WWW(strWWWPath);
+            yield return www2;
+
+            AssetBundle sub_bundle = www2.assetBundle;
+            AssetBundleRequest abrequest = sub_bundle.LoadAssetAsync<GameObject>("Assets/Scripts/UT/Resources/sample/a.prefab");
+            yield return abrequest;
+
+            GameObject go = abrequest.asset as GameObject;
+            if (null != go)
+            {
+                Instantiate(go, new Vector3(0, 0, 0), Quaternion.identity);
+            }
+
+            www2.Dispose();
+        }
+
+        www.Dispose();
     }
 }
