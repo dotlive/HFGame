@@ -4,7 +4,7 @@
 *.sln
 *.user
 Library
-Package
+Packages
 ProjectSettings
 Temp
 obj
@@ -23,3 +23,4 @@ Assets/Plugins/XLua/WebGL.meta
 
 Assets/XLua
 Assets/XLua.meta
+/ProjectSettings/ProjectVersion.txt
