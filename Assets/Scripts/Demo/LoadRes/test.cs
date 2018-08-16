@@ -100,19 +100,19 @@ public class test : MonoBehaviour
          */
 
 #if UNITY_EDITOR
-        TextAsset res_1 = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/Scripts/UT/Resources/" + RES_PATH2 + ".txt") as TextAsset;
+        TextAsset res_1 = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/Resources/" + RES_PATH2 + ".txt") as TextAsset;
         if (null != res_1)
         {
             Debug.Log(res_1.text);
         }
 
-        GameObject res_2 = AssetDatabase.LoadAssetAtPath("Assets/Scripts/UT/Resources/" + RES_PATH2 + ".prefab", typeof(GameObject)) as GameObject;
+        GameObject res_2 = AssetDatabase.LoadAssetAtPath("Assets/Resources/" + RES_PATH2 + ".prefab", typeof(GameObject)) as GameObject;
         if (null != res_2)
         {
             Debug.Log(5);
         }
 
-        TextAsset res_3 = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/Scripts/UT/Resources/" + RES_PATH1 + ".txt") as TextAsset;   // 不带扩展名会失败
+        TextAsset res_3 = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/Resources/" + RES_PATH1 + ".txt") as TextAsset;   // 不带扩展名会失败
         if (null != res_3)
         {
             Debug.Log(res_3.text);
@@ -142,7 +142,7 @@ public class test : MonoBehaviour
             yield return www2;
 
             AssetBundle sub_bundle = www2.assetBundle;
-            AssetBundleRequest abrequest = sub_bundle.LoadAssetAsync<GameObject>("Assets/Scripts/UT/Resources/sample/a.prefab");
+            AssetBundleRequest abrequest = sub_bundle.LoadAssetAsync<GameObject>("Assets/Resources/sample/a.prefab");
             yield return abrequest;
 
             GameObject go = abrequest.asset as GameObject;

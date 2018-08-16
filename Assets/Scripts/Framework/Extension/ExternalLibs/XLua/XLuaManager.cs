@@ -32,8 +32,10 @@ namespace HFGame
             _luaEnv.AddBuildin("pb.slice", LuaAPI.open_pb_slice);
             _luaEnv.AddBuildin("pb.io", LuaAPI.open_pb_io);
 
+#if HOTFIX_ENABLE
             // load patch
             _luaEnv.DoString("require 'patch.main'");
+#endif
 
             return true;
         }

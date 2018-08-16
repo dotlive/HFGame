@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine.UI;
 using UnityEditor;
 
 public class CreateUTMenuItem
 {
-    [MenuItem("UT/Build TestAB")]
+    [MenuItem("Test/Build TestAB")]
     public static void BuildTestAB()
     {
         List<AssetBundleBuild> abbuild_list = new List<AssetBundleBuild>();
@@ -13,7 +13,7 @@ public class CreateUTMenuItem
         abbuild.assetBundleName = "test.ab";
         abbuild.assetNames = new string[]
         {
-            "Assets/Scripts/UT/Resources/sample/a.prefab"
+            "Assets/Resources/sample/a.prefab"
         };
         abbuild_list.Add(abbuild);
 

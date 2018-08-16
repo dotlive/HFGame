@@ -1,3 +1,6 @@
 [submodule "xlua_plugins"]
 	path = xlua_plugins
 	url = https://gitee.com/dotlive/xlua_plugins.git
+[submodule "Backups"]
+	path = Backups
+	url = https://gitee.com/dotlive/HFBackups
