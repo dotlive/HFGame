@@ -1,12 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
+using UnityEditor;
 using UnityEngine;
 
 public class PathUtil
 {
-    /* 路径常量 */
-    public const string AB_SPECIFIED = "";
+    /* Assetbundle输入目录 */
+    public const string AssetBundlesInputDir = "";
+    /* Assetbundle输出目录 */
+    public const string AssetBundlesOutputDir = "AssetBundles";
+
+    /// <summary>
+    /// 获取WWW协议路径
+    /// </summary>
+    /// <returns></returns>
+    public static string GetWWWPath()
+    {
+        if (Application.isMobilePlatform)
+        {
+            switch (Application.platform)
+            {
+                case RuntimePlatform.Android:
+                    return "jar:file://" + GetABOutPath();
+                default:
+                    return null;
+            }
+        }
+        else
+        {
+            return "file:///" + GetABOutPath();
+        }
+    }
 
     /// <summary>
     /// 获取AB资源（输入目录）
@@ -14,7 +40,7 @@ public class PathUtil
     /// <returns></returns>
     public static string GetABResourcesPath()
     {
-        return Application.dataPath + "/" + AB_SPECIFIED;
+        return Application.dataPath + "/" + AssetBundlesInputDir;
     }
 
     /// <summary>
@@ -27,56 +53,29 @@ public class PathUtil
     /// <returns></returns>
     public static string GetABOutPath()
     {
-        return GetPlatformPath() + "/" + GetPlatformName();
-    }
-
-    /// <summary>
-    /// 获取WWW协议路径
-    /// </summary>
-    /// <returns></returns>
-    public static string GetWWWPath()
-    {
-        string strReturnWWWPath = string.Empty;
-
-        switch (Application.platform)
-        {
-            case RuntimePlatform.WindowsPlayer:
-            case RuntimePlatform.WindowsEditor:
-                strReturnWWWPath = "file:///" + GetABOutPath();
-                break;
-            case RuntimePlatform.Android:
-                strReturnWWWPath = "jar:file://" + GetABOutPath();
-                break;
-            default:
-                break;
-        }
-
-        return strReturnWWWPath;
+        StringBuilder sb = new StringBuilder();
+        sb.Append(GetPlatformPath());
+        sb.Append("/");
+        sb.Append(AssetBundlesOutputDir);
+        sb.Append("/");
+        sb.Append(GetPlatformName());
+        return sb.ToString();
     }
 
     /// <summary>
     /// 获取平台路径
     /// </summary>
     /// <returns></returns>
-    private static string GetPlatformPath()
+    public static string GetPlatformPath()
     {
-        string strReturnPlatformPath = string.Empty;
-
-        switch (Application.platform)
+        if (Application.isMobilePlatform)
         {
-            case RuntimePlatform.WindowsPlayer:
-            case RuntimePlatform.WindowsEditor:
-                strReturnPlatformPath = Application.streamingAssetsPath;
-                break;
-            case RuntimePlatform.IPhonePlayer:
-            case RuntimePlatform.Android:
-                strReturnPlatformPath = Application.persistentDataPath;
-                break;
-            default:
-                break;
+            return Application.persistentDataPath;
         }
-
-        return strReturnPlatformPath;
+        else
+        {
+            return Application.streamingAssetsPath;
+        }
     }
 
     /// <summary>
@@ -85,24 +84,53 @@ public class PathUtil
     /// <returns></returns>
     public static string GetPlatformName()
     {
-        string strReturnPlatformName = string.Empty;
+#if UNITY_EDITOR
+        return GetPlatformForAssetBundles(EditorUserBuildSettings.activeBuildTarget);
+#else
+        return GetPlatformForAssetBundles(Application.platform);
+#endif
+    }
 
-        switch (Application.platform)
+#if UNITY_EDITOR
+    private static string GetPlatformForAssetBundles(BuildTarget target)
+    {
+        switch (target)
         {
+            case BuildTarget.Android:
+                return "Android";
+            case BuildTarget.iOS:
+                return "iOS";
+            case BuildTarget.StandaloneWindows:
+            case BuildTarget.StandaloneWindows64:
+                return "Windows";
+            case BuildTarget.StandaloneOSX:
+                return "OSX";
+            case BuildTarget.tvOS:
+                return "tvOS";
+            default:
+                return null;
+        }   
+    }
+#else
+    private static string GetPlatformForAssetBundles(RuntimePlatform platform)
+    {
+        switch (platform)
+        {
+            case RuntimePlatform.Android:
+                return "Android";
+            case RuntimePlatform.IPhonePlayer:
+                return "iOS";
             case RuntimePlatform.WindowsPlayer:
             case RuntimePlatform.WindowsEditor:
-                strReturnPlatformName = "Win";
-                break;
-            case RuntimePlatform.IPhonePlayer:
-                strReturnPlatformName = "Iphone";
-                break;
-            case RuntimePlatform.Android:
-                strReturnPlatformName = "Android";
-                break;
+                return "Windows";
+            case RuntimePlatform.OSXPlayer:
+            case RuntimePlatform.OSXEditor:
+                return "OSX";
+            case RuntimePlatform.tvOS:
+                return "tvOS";
             default:
-                break;
+                return null;
         }
-
-        return strReturnPlatformName;
     }
+#endif
 }

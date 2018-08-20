@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5992e8c222b738342b2400eb718cb122, type: 3}
-  m_Name: New Contact Info
+  m_Name: contact_info
   m_EditorClassIdentifier: 
   fullName: dotlive
   sex: 0
